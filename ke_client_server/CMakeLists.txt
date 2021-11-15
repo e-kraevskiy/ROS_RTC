@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(talkers)
+project(ke_client_server)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -8,6 +8,7 @@ project(talkers)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  ke_service
   roscpp
 )
 
@@ -102,8 +103,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES talkers
-#  CATKIN_DEPENDS roscpp
+#  LIBRARIES ke_client_server
+#  CATKIN_DEPENDS ke_service roscpp
 #  DEPENDS system_lib
 )
 
@@ -120,7 +121,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/talkers.cpp
+#   src/${PROJECT_NAME}/ke_client_server.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -131,8 +132,9 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(publisher src/publisher.cpp)
-add_executable(subscriber src/subscriber.cpp)
+ add_executable(server src/reader.cpp)
+ add_executable(client src/writer.cpp)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -145,10 +147,10 @@ add_executable(subscriber src/subscriber.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
- target_link_libraries(publisher
+ target_link_libraries(server
    ${catkin_LIBRARIES}
  )
- target_link_libraries(subscriber
+ target_link_libraries(client
    ${catkin_LIBRARIES}
  )
 
@@ -199,7 +201,7 @@ add_executable(subscriber src/subscriber.cpp)
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_talkers.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_ke_client_server.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
