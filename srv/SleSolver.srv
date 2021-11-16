@@ -1,4 +1,6 @@
-int32 first
-int32 second
+float32 input1
+float32 input2
+float32 input3
+float32 input4
 ---
-int32 sum
+float32[] output

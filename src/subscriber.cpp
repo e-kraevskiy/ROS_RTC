@@ -1,13 +1,14 @@
 #include "ros/ros.h"
-#include "std_msgs/Int32.h"
+#include "std_msgs/Float32MultiArray.h"
 #include <iostream>
 
 using namespace std;
 
-void topic_reader (const std_msgs::Int32& message)
+void topic_reader (const std_msgs::Float32MultiArray& message)
 {
   // Выводим сообщение из топика
-  ROS_INFO_STREAM(message.data);
+  ROS_INFO_STREAM(message.data[0]);
+  ROS_INFO_STREAM(message.data[1]);
   return;
 }
 
