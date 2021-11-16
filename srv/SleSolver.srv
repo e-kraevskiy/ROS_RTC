@@ -2,5 +2,7 @@ float32 input1
 float32 input2
 float32 input3
 float32 input4
+float32 input5
+float32 input6
 ---
 float32[] output

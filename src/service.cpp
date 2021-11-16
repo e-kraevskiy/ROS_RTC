@@ -9,10 +9,10 @@ ros::Publisher publisher;
 bool solve(ke_client_server::SleSolver::Request &req,
     ke_client_server::SleSolver::Response &res)
 {
-    float sum1 = req.input1 + req.input2;
-    float sum2 = req.input3 + req.input4;
-    ROS_INFO("request:1=%f,2=%f,3=%f,4=%f",req.input1,req.input2,req.input3,req.input4);
-    ROS_INFO("sending back response:[%f],[%f]",sum1,sum2);
+    float sum1 = req.input1 + req.input2 + req.input3;
+    float sum2 = req.input4 + req.input5 + req.input6;
+    ROS_INFO("request:1=%f,2=%f,3=%f,4=%f,5=%f,6=%f",req.input1,req.input2,req.input3,req.input4,req.input5,req.input6);
+    ROS_INFO("[%f %f]", sum1, sum2);
     res.output.push_back(sum1);
     res.output.push_back(sum2);
 
