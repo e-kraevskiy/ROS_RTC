@@ -6,14 +6,15 @@ int main(int argc, char **argv)
 {
     ros::init(argc,argv,"sle_solver_publisher");
 
-    ros::NodeHandle n;
+    ros::NodeHandle node;
     // подписываем client на отпарвку сообщений в сервис "solve_sle"
-    ros::ServiceClient client = n.serviceClient<ke_client_server::SleSolver>("sle_solver");
+    ros::ServiceClient client = node.serviceClient<ke_client_server::SleSolver>("sle_solver");
     ke_client_server::SleSolver srv;
 
     while (ros::ok())
     {
         float in[6];
+
         std::cout << "a11:";    
         std::cin >> in[0];
         std::cout << "a21:";    
@@ -23,25 +24,28 @@ int main(int argc, char **argv)
         std::cout << "a21:";    
         std::cin >> in[3];
         std::cout << "a22:";    
-        std::cin >> in[5];
+        std::cin >> in[4];
         std::cout << "b2:";    
-        std::cin >> in[6];
-        
+        std::cin >> in[5];
 
-        srv.request.input1 = in[0];
-        srv.request.input2 = in[1];
-        srv.request.input3 = in[2];
-        srv.request.input4 = in[3];
-        srv.request.input5 = in[4];
-        srv.request.input6 = in[5];
-        // for (int i = 0; i < 6; i ++)
-        //     srv.request.inputi = in[i];
-        
-        
 
+        // for (int i = 0; i < 6; i++)
+        // {
+        //     std::cout << in[i] << " ";
+        // }
+        // std::cout << std::endl;        
+
+        srv.request.a11 = in[0];
+        srv.request.a12 = in[1];
+        srv.request.b1 = in[2];
+        srv.request.a21 = in[3];
+        srv.request.a22 = in[4];
+        srv.request.b2 = in[5];
+
+        
         if (client.call(srv))
         {
-            ROS_INFO("[%f %f]", srv.response.output[0], srv.response.output[1]);
+            ROS_INFO("[%f %f]", srv.response.result[0], srv.response.result[1]);
         }
         else
         {
